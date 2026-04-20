@@ -1,5 +1,21 @@
 # Kinetics-400 Pose-Based Human Action Recognition for Ambient Intelligence
+> **📌 PRE-PUBLICATION NOTICE**: This repository contains code and data for a paper under review at Springer Nature. 
+> The repository will be permanently archived upon paper acceptance.
 
+[![Under Review](https://img.shields.io/badge/status-under%20review-orange.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)]()
+
+## ⚠️ Pre-publication Version
+
+This code is shared for:
+- ✅ Reviewers to verify results
+- ✅ Community feedback and reproduction
+- ✅ Open science practices
+
+The final version will be archived on Zenodo upon acceptance.
+
+---
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
