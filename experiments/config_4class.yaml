@@ -1,0 +1,40 @@
+# ============================================================
+# 4-Class High-Divergence Benchmark
+# Paper result: 76.55% accuracy / 76.77% F1  (+51.55% over chance)
+# ============================================================
+
+name: "4class_benchmark"
+data_path: "data/processed/"
+
+class_names:
+  - archery
+  - "clean and jerk"
+  - "crawling baby"
+  - "brushing teeth"
+
+# Dataset statistics (for reference)
+dataset:
+  total_frames:  183093
+  train_frames:  142872
+  test_frames:    40221
+  n_videos:        168
+  chance_level:    0.25
+
+model_params:
+  n_estimators:       100
+  max_depth:          null      # grow full trees
+  min_samples_split:    2
+  min_samples_leaf:     1
+
+training:
+  test_size:       0.20
+  random_state:      42
+  split_strategy:  video_level   # no frame leakage
+
+evaluation:
+  metrics:
+    - accuracy
+    - f1_weighted
+    - confusion_matrix
+    - per_class_accuracy
+  figures_dpi: 300

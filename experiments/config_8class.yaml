@@ -1,0 +1,44 @@
+# ============================================================
+# 8-Class Full Diversity Benchmark
+# Paper result: 43.87% accuracy / 43.41% F1  (+31.4% over chance)
+# ============================================================
+
+name: "8class_benchmark"
+data_path: "data/processed/"
+
+class_names:
+  - "air drumming"
+  - archery
+  - "arm wrestling"
+  - "blowing glass"
+  - "blowing out candles"
+  - "brushing teeth"
+  - "clean and jerk"
+  - "crawling baby"
+
+# Dataset statistics (for reference)
+dataset:
+  total_frames:  366683
+  train_frames:  294931
+  test_frames:    71752
+  n_videos:        290
+  chance_level:   0.125
+
+model_params:
+  n_estimators:       100
+  max_depth:          null
+  min_samples_split:    2
+  min_samples_leaf:     1
+
+training:
+  test_size:       0.20
+  random_state:      42
+  split_strategy:  video_level
+
+evaluation:
+  metrics:
+    - accuracy
+    - f1_weighted
+    - confusion_matrix
+    - per_class_accuracy
+  figures_dpi: 300

@@ -1,0 +1,37 @@
+# ============================================================
+# Full 328-Class Dataset — Pose Extraction Configuration
+# Use for global visibility analysis and dataset construction
+# ============================================================
+
+name: "full_benchmark"
+data_path: "data/processed/"
+
+class_names: null   # null = all 328 classes
+
+# Dataset statistics (for reference)
+dataset:
+  total_frames:  4163828
+  n_videos:         8370
+  n_classes:         328
+  mean_visibility:  0.747
+  high_quality_frames: 2829721   # frames with >70% visibility
+
+# Pose extraction parameters (used by src/extract_poses.py)
+extraction:
+  stride:            15
+  max_frames:       100
+  model_complexity:   1
+  min_detection_confidence: 0.5
+  min_tracking_confidence:  0.5
+
+training:
+  test_size:       0.20
+  random_state:      42
+  split_strategy:  video_level
+
+evaluation:
+  metrics:
+    - accuracy
+    - f1_weighted
+    - confusion_matrix
+  figures_dpi: 300
