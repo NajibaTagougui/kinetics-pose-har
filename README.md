@@ -283,7 +283,6 @@ Contributions are welcome! Please see [docs/contributing.md](docs/contributing.m
 
 - [MediaPipe](https://github.com/google/mediapipe) team for the pose estimation library
 - Kinetics-400 dataset creators (DeepMind)
-- Springer Nature for publication support
 
 ## ⚠️ Disclaimer
 
