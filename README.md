@@ -1,70 +1,5 @@
 # Kinetics-400 Pose-Based Human Action Recognition for Ambient Intelligence
-> **📌 PRE-PUBLICATION NOTICE**: This repository contains code and data for a paper under review at Springer Nature. 
-> The repository will be permanently archived upon paper acceptance.
 
-[![Under Review](https://img.shields.io/badge/status-under%20review-orange.svg)]()
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)]()
-
-## ⚠️ Pre-publication Version
-
-This code is shared for:
-- ✅ Reviewers to verify results
-- ✅ Community feedback and reproduction
-- ✅ Open science practices
-
-The final version will be archived on Zenodo upon acceptance.
-
----
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
-A privacy-preserving framework for human action recognition using 3D skeletal pose landmarks instead of RGB video. This repository contains the complete code and data pipeline for the paper:
-
-> **Privacy-Preserving Human Action Recognition for Ambient Intelligence: A 3D Pose-Based Benchmark**  
-> *Najiba Tagougui and Monji Kherallah*  
-> Springer Nature Journal
-
-## 📋 Overview
-
-This framework replaces intrusive RGB monitoring with 3D skeletal pose landmarks extracted using MediaPipe Pose Landmarker. The system achieves:
-
-| Benchmark     | Accuracy    | Improvement over Chance  |
-|---------------|-------------|--------------------------|
-| 4-Class Subset | **76.55%** | +51.55% (p < 0.001)     |
-| 8-Class Subset | **43.87%** | +31.40% (p < 0.001)     |
-
-### Key Features
-
-- ✅ **Privacy-by-Design**: No RGB storage or transmission — raw pixels are purged immediately after pose extraction
-- ✅ **Edge-Deployable**: Lightweight Random Forest (~8 MB), millisecond inference per frame
-- ✅ **Interpretable**: Gini feature importance exposes which body joints drive recognition
-- ✅ **Large-Scale**: 4,163,828 frames · 328 action classes · 8,370 videos
-- ✅ **Reproducible**: Complete code, configs, and processed data available
-
-## 📊 Dataset
-
-The processed dataset contains:
-
-| Property           | Value             |
-|--------------------|-------------------|
-| Total frames       | 4,163,828         |
-| Total videos       | 8,370             |
-| Action classes     | 328               |
-| Features per frame | 132 (33 × [x,y,z,ν]) |
-| File format        | Parquet (~1.27 GB)|
-| Avg. landmark visibility | 74.7%      |
-
-### Evaluation Subsets
-
-| Subset   | Classes | Frames    | Videos | Train Frames | Test Frames |
-|----------|---------|-----------|--------|--------------|-------------|
-| Full     | 328     | 4,163,828 | 8,370  | —            | —           |
-| 8-Class  | 8       | 366,683   | 290    | 294,931      | 71,752      |
-| 4-Class  | 4       | 183,093   | 168    | 142,872      | 40,221      |
-
-## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -152,19 +87,6 @@ python src/evaluate.py \
 | SVM (RBF Kernel)       | 65.00%     | 65.90%     | +40.00%          |
 | MLP (Deep Learning)    | 14.70%     | 14.60%     | −10.30%          |
 
-## 🏗️ System Architecture
-
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Perception     │     │  Anonymization  │     │  Intelligence   │
-│  Layer          │────▶│  Gateway        │────▶│  Layer          │
-│  (RGB Frames)   │     │  (MediaPipe)    │     │  (Random Forest)│
-└─────────────────┘     └─────────────────┘     └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-   Zero-Persistence        132D Pose Vector        76.55% Accuracy
-   (No storage)            (x, y, z, ν × 33)       Edge Deployable
-```
 
 ## 📁 Repository Structure
 
@@ -210,80 +132,7 @@ kinetics-pose-har/
     ├── api_reference.md
     └── contributing.md
 ```
-
-## 🧪 Reproducibility
-
-To reproduce all paper results from scratch:
-
-```bash
-# 1. Extract poses from raw Kinetics-400 videos
-python src/extract_poses.py \
-    --input_dir data/raw/videos \
-    --output_dir data/processed/poses \
-    --stride 15 --max_frames 100
-
-# 2. Preprocess and split (video-level, no leakage)
-python src/preprocess.py --split_strategy video_level
-
-# 3. Train both benchmarks
-python src/train_model.py --config experiments/config_4class.yaml
-python src/train_model.py --config experiments/config_8class.yaml
-
-# 4. Generate evaluation reports and confusion matrices
-python src/evaluate.py --all
-
-# 5. Reproduce paper figures
-jupyter nbconvert --to notebook --execute notebooks/03_results_visualization.ipynb
-```
-
-Expected outputs:
-
-| Step            | Output file           | Expected result        |
-|-----------------|-----------------------|------------------------|
-| Pose Extraction | full_dataset.parquet  | 4,163,828 frames, 1.27 GB |
-| 4-Class Train   | rf_4class.pkl         | 76.55% accuracy        |
-| 8-Class Train   | rf_8class.pkl         | 43.87% accuracy        |
-| Figures         | results/figures/      | 300 DPI publication-ready PNGs |
-
-## 📖 Documentation
-
-- [Installation Guide](docs/installation.md)
-- [Usage Guide](docs/usage.md)
-- [API Reference](docs/api_reference.md)
-- [Contributing Guidelines](docs/contributing.md)
-
-## 🔬 Citation
-
-If you use this code or dataset in your research, please cite:
-
-```bibtex
-@article{tagougui2024privacy,
-  title     = {Privacy-Preserving Human Action Recognition for Ambient Intelligence: A 3D Pose-Based Benchmark},
-  author    = {Tagougui, Najiba and Kherallah, Monji},
-  journal   = {Springer Nature Journal},
-  year      = {2024},
-  url       = {https://github.com/NajibaTagougui/kinetics-pose-har}
-}
-```
-
-## 📜 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please see [docs/contributing.md](docs/contributing.md) for guidelines.
-
-## 📧 Contact
-
-- **Corresponding author**: Najiba Tagougui — najiba.tagougui@isims.usf.tn
-- **Issues**: [GitHub Issues](https://github.com/NajibaTagougui/kinetics-pose-har/issues)
-
 ## 🙏 Acknowledgments
 
 - [MediaPipe](https://github.com/google/mediapipe) team for the pose estimation library
 - Kinetics-400 dataset creators (DeepMind)
-
-## ⚠️ Disclaimer
-
-This code is provided for research purposes. The privacy-preserving nature of the pipeline has been validated against GDPR principles, but users should ensure compliance with local data protection regulations.
